@@ -1,6 +1,6 @@
 #robot settings
 wall_penalty: -5
-empty_catching: -1
+empty_catching_penalty: -1
 reward: 10
 mutation_rate: 0.01
 total_moves: 200

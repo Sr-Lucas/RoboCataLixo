@@ -18,7 +18,7 @@ class World:
     self.rubbishProbability = rubbishProbability
 
     # creates 10x10 world with random rubbish positions and empty spaces
-    self.grid = np.random.choice([empty_space,rubbish], size=(self.worldSize+2,self.worldSize+2), p=(1 - self.rubbishProbability, self.rubbishProbability))
+    self.grid = np.random.choice([empty_space,rubbish], size=(self.worldSize, self.worldSize), p=(1 - self.rubbishProbability, self.rubbishProbability))
 
     # sets the walls
     self.grid[:, [0, self.worldSize-1]] = wall
@@ -30,8 +30,15 @@ class World:
           if (x == robot.posX and y == robot.posY):
             print('[R]', end ='')
           else:
-            print(f'[{self.grid[y][x]}]', end ='')
+            print(f'[{self.grid[x][y]}]', end ='')
       print()
   
   def getRobotVision(self, posX, posY):
     return self.grid[posX, posY - 1] + self.grid[posX - 1, posY] + self.grid[posX, posY + 1] + self.grid[posX + 1, posY] + self.grid[posX, posY]
+  
+  def removeRubbish(self, posX, posY):
+    if self.grid[posX, posY] == rubbish:
+      self.grid[posX, posY] = empty_space
+      return True
+    else:
+      return False
